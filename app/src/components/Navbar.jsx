@@ -19,7 +19,7 @@ export default function Navbar() {
             {!app.isOrganizer && <Link to="/organizer-form">REGISTER</Link>}
             {app.isOrganizer && <Link to="/create-tournament">CREATE</Link>}
             <Link to="/games">GAMES</Link>
-            <Link to="/trade">TRADE</Link>
+            <Link to="/tournaments">TOURNAMENTS</Link>
             <Link to="/leader-board">LEADER BOARD</Link>
           </div>
           <div className="block md:hidden text-white">

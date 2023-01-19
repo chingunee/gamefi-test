@@ -70,6 +70,10 @@ contract TournamentFactory is AccessControl {
     return addressToOrganizerTournamentIds[_organizer];
   }
 
+  function getTournamentAddress(uint _id) external view returns(address) {
+    return tournamentIdToAddress[_id];
+  }
+
   function getAllTournaments() external view returns(uint[] memory) {
     return tournaments;
   }

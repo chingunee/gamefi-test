@@ -1,21 +1,21 @@
 import { ethers } from "ethers";
-import OrganizerNftAbi from "../abi/OrganizerNFT.json";
-import { organizerNft } from "../genAddresses.json";
+import MockTokenAbi from "../abi/MockToken.json";
+import { mockToken } from "../genAddresses.json";
 import { getContractEssentials } from "./helpers";
 
-async function getOrganizerNftContract() {
+async function getMockTokenContract() {
   let { provider, signer } = await getContractEssentials();
-  let address = organizerNft;
+  let address = mockToken;
 
-  const organizerNftReadContract = new ethers.Contract(
+  const mockTokenReadContract = new ethers.Contract(
     address,
-    OrganizerNftAbi,
+    MockTokenAbi,
     provider
   );
 
-  let organizerNftWriteContract = organizerNftReadContract.connect(signer);
+  let mockTokenWriteContract = mockTokenReadContract.connect(signer);
 
-  return { organizerNftReadContract, organizerNftWriteContract };
+  return { mockTokenReadContract, mockTokenWriteContract };
 }
 
-export { getOrganizerNftContract };
+export { getMockTokenContract };

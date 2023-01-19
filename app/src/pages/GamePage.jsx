@@ -1,107 +1,49 @@
-import { useState, useEffect } from "react";
+import React from "react";
+
+import game1 from "../../assets/game1.png";
+import img1 from "../../assets/img1.jpg";
+import littleImg1 from "../../assets/littleImg1.png";
+import titleImg2 from "../../assets/titleImg2.png";
+import Footer from "../components/Footer";
 import GameCard from "../components/GameCard";
 
-import { getTournamentContract } from "../../contracts/TournamentContractHelper";
-import { getTournamentFactoryContract } from "../../contracts/TournamentFactoryContractHelper.jsx";
-
 export default function GamePage() {
-  const [tournaments, setTournaments] = useState([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    getAllGameAddresses();
-  }, []);
-
-  useEffect(() => {
-    getAllTournaments();
-  }, []);
-
-  async function getAllGameAddresses() {
-    try {
-      const { tournamentFactoryReadContract } =
-        await getTournamentFactoryContract();
-      let result = await tournamentFactoryReadContract.getAllTournaments();
-      let results = result.map((i) => i.toNumber());
-      setTournaments(results);
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  async function getAllTournaments() {
-    const { tournamentFactoryReadContract } =
-      await getTournamentFactoryContract();
-    let allTournamentIds =
-      await tournamentFactoryReadContract.getAllTournaments();
-    let tournamentDataArray = [];
-
-    setLoading(true);
-
-    for (let id of allTournamentIds) {
-      let tournamentAddress = null;
-
-      try {
-        tournamentAddress =
-          await tournamentFactoryReadContract.tournamentIdToAddress(
-            id.toNumber()
-          );
-      } catch (e) {
-        console.log(e);
-      }
-
-      if (tournamentAddress != null) {
-        const { tournamentReadContract } = await getTournamentContract(
-          tournamentAddress
-        );
-        let tournamentDetails =
-          await tournamentReadContract.tournamentDetails();
-
-        let tournamentData = {
-          id: id.toNumber(),
-          tournamentAddress,
-          tournamentDetails,
-        };
-
-        tournamentDataArray.push(tournamentData);
-      }
-    }
-    setTournaments(tournamentDataArray);
-    setLoading(false);
-  }
-
-  console.log("tournaments: ", tournaments);
-
   return (
-    <div className="min-h-screen w-full flex justify-center mt-0 lg:mt-5 p-5 lg:p-3">
-      <div className="flex max-w-5xl justify-center ">
-        {loading ? (
-          <div className="flex w-full justify-center">
-            <svg
-              className="inline mr-2 w-14 h-14 animate-spin dark:text-gray-200 fill-blue-600"
-              viewBox="0 0 100 101"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-                fill="currentColor"
-              />
-              <path
-                d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-                fill="currentFill"
-              />
-            </svg>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 w-full h-64 mb-10">
-            {tournaments.length > 0 &&
-              tournaments.map((data, index) => {
-                if (data.tournamentDetails == undefined) return <></>;
-                return <GameCard key={index} data={data} />;
-              })}
-          </div>
-        )}
+    <div className="w-full bg-[#02121d] text-white font-body">
+      <div
+        style={{
+          backgroundImage: `url(https://demo.thetork.com/html/torkgo/assets/images/header/bg.jpg)`,
+        }}
+        className="h-[20rem] w-screen flex flex-col items-center justify-center font-body text-white space-y-6"
+      >
+        <h1 className="text-5xl font-bold">Available Games</h1>
       </div>
+      <div className="xl:container mx-auto xl:px-20 md:px-12 px-4 py-28 flex flex-wrap justify-between space-y-6 sm:space-y-0">
+        <div className="w-full sm:w-[48%] lg:w-[30%] h-[35rem] bg-[#0a1f2f]">
+          <GameCard
+            slug={"stick-hero"}
+            bgImage={game1}
+            titleImage={littleImg1}
+            gameName="Stick Hero"
+            txt1="Public"
+            txt2="42"
+            txt3="TBA"
+          />
+        </div>
+        <div className="w-full sm:w-[48%] lg:w-[30%] h-[35rem] bg-[#0a1f2f]">
+          <GameCard
+            slug={"football"}
+            bgImage={img1}
+            titleImage={titleImg2}
+            gameName="Football"
+            txt1="Public"
+            txt2="42"
+            txt3="TBA"
+          />
+        </div>
+        <div className="w-full sm:w-[48%] lg:w-[30%]"></div>
+      </div>
+      <Footer />
     </div>
   );
 }

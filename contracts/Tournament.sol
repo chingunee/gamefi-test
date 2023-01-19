@@ -84,8 +84,7 @@ contract Tournament {
         require(
             !registeredNickname[_nickname],
             "Invalid nickname.");
-        bool approved = token.approve(address(this), amount);
-        require(approved, "Approved failed");
+
         bool sentFeeToPrize = token.transferFrom(msg.sender, address(this), amount);
         require(
             sentFeeToPrize,
@@ -167,5 +166,5 @@ contract Tournament {
         if(sentPlayerPrizeWon) {
             prize = 0;
         }
-    }   
+    }
 }
