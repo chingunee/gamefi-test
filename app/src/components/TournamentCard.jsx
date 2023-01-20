@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Line } from "rc-progress";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers";
@@ -24,8 +24,6 @@ const TournamentCard = (props) => {
   useEffect(() => {
     getPlayerData();
   }, []);
-
-  let { gameName } = useParams();
 
   async function getPlayerData() {
     setLoading(true);
@@ -108,6 +106,7 @@ const TournamentCard = (props) => {
             />
           </div>
         )}
+
         {app.isPlayer && (
           <div className="pt-4 flex items-center justify-between font-body text-lg">
             <p className="text-white/80 font-medium">Nickname:</p>
@@ -116,6 +115,7 @@ const TournamentCard = (props) => {
             </p>
           </div>
         )}
+
         {!app.isPlayer && (
           <div className="space-y-2">
             <p className="font-medium text-white/80">Amount</p>
@@ -128,6 +128,7 @@ const TournamentCard = (props) => {
             />
           </div>
         )}
+
         {app.isPlayer && (
           <div className="pt-4 flex items-center justify-between font-body text-lg">
             <p className="text-white/80 font-medium">Score:</p>
@@ -136,6 +137,7 @@ const TournamentCard = (props) => {
             </p>
           </div>
         )}
+
         {!app.isPlayer && (
           <button
             disabled={disableLoaderBtn ? true : false}
@@ -171,11 +173,12 @@ const TournamentCard = (props) => {
             <span>Approve</span>
           </button>
         )}
+
         {app.isPlayer && (
           <div className="pt-4 flex items-center justify-between font-body text-lg">
             <p className="text-white/80 font-medium">Life:</p>
             <p className="text-[#28dbd1] font-semibold">
-              {playerData && playerData.life.toString()}
+              {playerData && playerData.life.toNumber()}
             </p>
           </div>
         )}
@@ -214,39 +217,9 @@ const TournamentCard = (props) => {
             <span>Participate</span>
           </button>
         )}
-        {!app.isPlayer && (
-          <Link
-            target="_blank"
-            to={`/games/${gameName}/play`}
-            className="flex justify-center items-center bg-[#28dbd1] text-[#0a1f2f] hover:text-[#28dbd1] hover:border-[#28dbd1] hover:skew-x-0 duration-300 border border-transparent hover:bg-[#0a1f2f] font-semibold h-8 w-20 rounded -skew-x-6"
-          >
-            PLAY
-          </Link>
-        )}
-        {app.isPlayer && (
-          <Link
-            target="_blank"
-            to={`/games/${gameName}/play`}
-            className="flex justify-center items-center bg-[#28dbd1] text-[#0a1f2f] hover:text-[#28dbd1] hover:border-[#28dbd1] hover:skew-x-0 duration-300 border border-transparent hover:bg-[#0a1f2f] font-semibold h-8 w-20 rounded -skew-x-6"
-          >
-            PLAY
-          </Link>
-        )}
       </div>
     </div>
   );
 };
 
 export default TournamentCard;
-
-{
-  /* 
-<div className="flex items-center justify-between font-body text-lg">
-<p className="text-white/80 font-medium">Participent</p>
-<p className="text-[#28dbd1] font-semibold">{txt2}</p>
-</div>
-<div className="flex items-center justify-between font-body text-lg">
-<p className="text-white/80 font-medium">Project Start</p>
-<p className="text-[#28dbd1] font-semibold">{txt3}</p>
-</div> */
-}

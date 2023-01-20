@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 
 export default function NinjaGame() {
+  const app = useSelector((state) => state.app);
+
   const rootRef = useRef(null);
   const canvasRef = useRef(null);
   const introRef = useRef(null);
@@ -571,12 +574,6 @@ export default function NinjaGame() {
         <div className="w-full rounded bg-[#0a1f2f] p-10">
           <div className="flex items-start justify-between">
             <div className="flex-1">
-              <p className="font-semibold text-xl">Nickname</p>
-              <span className="font-bold text-2xl text-[#28dbd1]">
-                {playerData && playerData.nickname}
-              </span>
-            </div>
-            <div className="flex-1">
               <p className="font-semibold text-xl">Total Score</p>
               <span className="font-bold text-2xl text-[#28dbd1]">1,000</span>
             </div>
@@ -603,16 +600,26 @@ export default function NinjaGame() {
           <div ref={perfectRef} className={`absolute opacity-0`}>
             DOUBLE SCORE
           </div>
-          <button
-            onClick={restartGame}
-            ref={restartRef}
-            className={`absolute border-none w-[120px] h-[120px] hidden rounded-full text-white bg-[#28dbd1] font-semibold text-xl cursor-pointer`}
-          >
-            RESTART
-          </button>
+          {app.hasLife && (
+            <button
+              onClick={restartGame}
+              ref={restartRef}
+              className={`absolute border-none w-[120px] h-[120px] hidden rounded-full text-white bg-[#28dbd1] font-semibold text-xl cursor-pointer`}
+            >
+              RESTART
+            </button>
+          )}
+          {!app.hasLife && (
+            <button
+              onClick={restartGame}
+              ref={restartRef}
+              className={`absolute border-none w-[120px] h-[120px] hidden rounded-full text-white bg-[#28dbd1] font-semibold text-xl cursor-pointer`}
+            >
+              Buy Life
+            </button>
+          )}
         </div>
       </div>
-      \{" "}
     </div>
   );
 

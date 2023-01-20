@@ -16,6 +16,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/organizer-form" element={<OrganizerForm />} />
           <Route path="/create-tournament" element={<MintTournament />} />
+
           <Route path="/games" element={<GamePage />} />
           <Route path="/games">
             <Route path=":gameName" element={<GameDetails />} />

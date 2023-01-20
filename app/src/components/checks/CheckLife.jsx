@@ -2,25 +2,29 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import { getTournamentContract } from "../../../contracts/TournamentContractHelper";
-import { userIsPlayer } from "../../slices/appSlice.jsx";
+import { playerHasLife } from "../../slices/appSlice.jsx";
 
-export default function CheckPlayer({ children }) {
+export default function CheckLife({ children }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    checkIfUserIsPlayer();
+    checkIfPlayerHasLife();
   }, []);
 
-  async function checkIfUserIsPlayer() {
+  async function checkIfPlayerHasLife() {
     try {
       let addr = "0x7662c24Bb19e539A99f198afDEcb71F6CFf39AA3";
       const { tournamentReadContract } = await getTournamentContract(addr);
-      let balance = await tournamentReadContract.addressJoined(
+
+      let id = await tournamentReadContract.addressToPlayerId(
         window.ethereum.selectedAddress
       );
 
-      if (balance) {
-        dispatch(userIsPlayer());
+      let player = await tournamentReadContract.players(id.toNumber() - 1);
+      let p_life = player.life;
+
+      if (p_life.toNumber() > 0) {
+        dispatch(playerHasLife());
       }
     } catch (e) {
       console.log(e);

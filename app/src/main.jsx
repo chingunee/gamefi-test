@@ -9,6 +9,7 @@ import CheckAlert from "./components/checks/CheckAlert";
 import CheckNetwork from "./components/checks/CheckNetwork";
 import CheckOrganizer from "./components/checks/CheckOrganizer.jsx";
 import CheckPlayer from "./components/checks/CheckPlayer";
+import CheckLife from "./components/checks/CheckLife";
 
 import { store } from "./store";
 
@@ -18,9 +19,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <CheckNetwork>
         <CheckOrganizer>
           <CheckPlayer>
-            <CheckAlert>
-              <App />
-            </CheckAlert>
+            <CheckLife>
+              <CheckAlert>
+                <App />
+              </CheckAlert>
+            </CheckLife>
           </CheckPlayer>
         </CheckOrganizer>
       </CheckNetwork>

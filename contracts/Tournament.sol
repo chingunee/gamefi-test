@@ -30,6 +30,7 @@ contract Tournament {
     mapping(uint => address) public playerIdToAddress;
     mapping(string => bool) registeredNickname;
     mapping(address => bool) public addressJoined;
+    mapping(uint => bool) public hasLife;
 
     event PrizeIncreased(uint NewPrize);
     event PlayerScoreIncreased(address player, uint score);
@@ -92,7 +93,7 @@ contract Tournament {
 
         prize += amount;
         players.push(Player({
-                life: amount /= 100, // You can get 1 life with 100 tokens.
+                life: amount = amount / (100 * 1e18), // You can get 1 life with 100 tokens.
                 score: 0, 
                 p_address: msg.sender,
                 nickname: _nickname
@@ -102,6 +103,7 @@ contract Tournament {
         addressToPlayerId[msg.sender] = players.length;
         registeredNickname[_nickname] = true;
         addressJoined[msg.sender] = true;
+        // hasLife[players[playerId - 1].life] = true;
 
         emit NewPlayer(msg.sender, _nickname);
         emit PrizeIncreased(prize);
@@ -110,11 +112,12 @@ contract Tournament {
     function buyLife(uint amount) public onlyPlayer {
         bool sentTokenToLife = token.transferFrom(msg.sender, address(this), amount);
         require(sentTokenToLife, "The transfer of buying a life has failed.");
-        amount /= 100;
+        amount = amount / (100 * 1e18);
         if(sentTokenToLife) {
             players[playerId - 1].life += amount;
         }
         emit PlayerLifeIncreased(msg.sender, amount);
+        // hasLife[players[playerId - 1].life] = true;
     }
 
     function decreaseLife(uint amount) public onlyPlayer {

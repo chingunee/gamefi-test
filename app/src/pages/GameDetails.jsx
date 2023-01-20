@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import { ethers } from "ethers";
+import { useParams, Link } from "react-router-dom";
 
 import { getTournamentContract } from "../../contracts/TournamentContractHelper";
-import { getTournamentFactoryContract } from "../../contracts/TournamentFactoryContractHelper.jsx";
 
 const GameDetails = () => {
+  let { gameName } = useParams();
+
   const [tournaments, setTournaments] = useState([]);
   const [loading, setLoading] = useState(false);
   const [playerData, setPlayerData] = useState(null);
@@ -88,7 +89,7 @@ const GameDetails = () => {
               </div>
               <Link
                 target="_blank"
-                to={`/games/play`}
+                to={`/games/${gameName}/play`}
                 className="flex justify-center items-center bg-[#28dbd1] text-[#0a1f2f] hover:text-[#28dbd1] hover:border-[#28dbd1] hover:skew-x-0 duration-300 border border-transparent hover:bg-[#0a1f2f] font-semibold h-8 w-20 rounded -skew-x-6"
               >
                 PLAY
