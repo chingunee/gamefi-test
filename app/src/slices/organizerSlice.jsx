@@ -12,7 +12,4 @@ const organizerSlice = createSlice({
   },
 });
 
-export const { showConnectWalletModal, hideConnectWalletModal } =
-  organizerSlice.actions;
-
 export const modalReducer = organizerSlice.reducer;

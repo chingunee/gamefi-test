@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { BiWindows } from "react-icons/bi";
-import { FaProjectDiagram, FaRoad, FaUserAstronaut } from "react-icons/fa";
 import Footer from "../components/Footer";
 import { ethers } from "ethers";
 
@@ -19,7 +17,7 @@ const GameDetails = () => {
 
   async function getPlayerData() {
     setLoading(true);
-    let addr = "0xb24e6A3b5286DBAc4b0D97a3DD5C1e12a8c25a31";
+    let addr = "0x4a5288D28b21D097496b23A09BB5e0aA106F623a";
     const { tournamentReadContract } = await getTournamentContract(addr);
 
     let id = await tournamentReadContract.addressToPlayerId(
@@ -30,9 +28,6 @@ const GameDetails = () => {
     setPlayerData(data);
   }
 
-  // if (organizerData == null) {
-  //   return <></>;
-  // }
   return (
     <div className="w-full bg-[#02121d] text-white font-body">
       <div

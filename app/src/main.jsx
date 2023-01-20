@@ -8,6 +8,7 @@ import CheckMetamask from "./components/checks/CheckMetamask";
 import CheckAlert from "./components/checks/CheckAlert";
 import CheckNetwork from "./components/checks/CheckNetwork";
 import CheckOrganizer from "./components/checks/CheckOrganizer.jsx";
+import CheckPlayer from "./components/checks/CheckPlayer";
 
 import { store } from "./store";
 
@@ -16,9 +17,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <CheckMetamask>
       <CheckNetwork>
         <CheckOrganizer>
+          <CheckPlayer>
             <CheckAlert>
               <App />
             </CheckAlert>
+          </CheckPlayer>
         </CheckOrganizer>
       </CheckNetwork>
     </CheckMetamask>

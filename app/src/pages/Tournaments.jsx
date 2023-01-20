@@ -40,7 +40,6 @@ export default function Tournaments() {
 
     for (let id of allTournamentIds) {
       let tournamentAddress = null;
-
       try {
         tournamentAddress =
           await tournamentFactoryReadContract.tournamentIdToAddress(
