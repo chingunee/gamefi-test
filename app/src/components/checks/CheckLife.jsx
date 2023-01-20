@@ -13,7 +13,7 @@ export default function CheckLife({ children }) {
 
   async function checkIfPlayerHasLife() {
     try {
-      let addr = "0x7662c24Bb19e539A99f198afDEcb71F6CFf39AA3";
+      let addr = "0x9154F1E609f7186d845447716885e257a978b1dc";
       const { tournamentReadContract } = await getTournamentContract(addr);
 
       let id = await tournamentReadContract.addressToPlayerId(

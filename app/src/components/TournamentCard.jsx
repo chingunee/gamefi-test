@@ -12,8 +12,8 @@ import { getMockTokenContract } from "../../contracts/MockTokenContractHelper";
 
 const TournamentCard = (props) => {
   const app = useSelector((state) => state.app);
-  const [playerData, setPlayerData] = useState(null);
 
+  const [playerData, setPlayerData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [disableLoaderBtn, setDisableLoaderBtn] = useState(false);
   const { data, index } = props;

@@ -1,11 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.4;
 
-import "../contracts/interfaces/IERC20Token.sol";
-import "../contracts/structs/Player.sol";
-import "../contracts/structs/TournamentDetails.sol";
-
-import "../contracts/enums/TournamentStatus.sol";
+import "./interfaces/IERC20Token.sol";
+import "./structs/Player.sol";
+import "./structs/TournamentDetails.sol";
 
     // We will organize a weekly tournament in 
     // which users can participate by using MNFT tokens.
@@ -16,6 +14,7 @@ contract Tournament {
     uint public prize;
     uint public playerId;
     uint public tournamentEndTime;
+    uint public constant fee = 1;
 
     address public organizer;
     address public mockToken;
@@ -30,7 +29,6 @@ contract Tournament {
     mapping(uint => address) public playerIdToAddress;
     mapping(string => bool) registeredNickname;
     mapping(address => bool) public addressJoined;
-    mapping(uint => bool) public hasLife;
 
     event PrizeIncreased(uint NewPrize);
     event PlayerScoreIncreased(address player, uint score);
@@ -103,7 +101,6 @@ contract Tournament {
         addressToPlayerId[msg.sender] = players.length;
         registeredNickname[_nickname] = true;
         addressJoined[msg.sender] = true;
-        // hasLife[players[playerId - 1].life] = true;
 
         emit NewPlayer(msg.sender, _nickname);
         emit PrizeIncreased(prize);
@@ -111,17 +108,16 @@ contract Tournament {
 
     function buyLife(uint amount) public onlyPlayer {
         bool sentTokenToLife = token.transferFrom(msg.sender, address(this), amount);
-        require(sentTokenToLife, "The transfer of buying a life has failed.");
+        require(sentTokenToLife, "The transfer of buying a life has failed.");        
         amount = amount / (100 * 1e18);
         if(sentTokenToLife) {
-            players[playerId - 1].life += amount;
+            players[addressToPlayerId[msg.sender] - 1].life += amount;
         }
         emit PlayerLifeIncreased(msg.sender, amount);
-        // hasLife[players[playerId - 1].life] = true;
     }
 
-    function decreaseLife(uint amount) public onlyPlayer {
-        players[playerId - 1].life -= amount;
+    function decreaseLife() public onlyPlayer {
+        players[addressToPlayerId[msg.sender] - 1].life -= fee;
     }
 
     function increasePrize(uint amount) public onlyOrganizer {
@@ -138,8 +134,8 @@ contract Tournament {
         require(
             players[playerId - 1].life == 0,
             "In order to add score your balance you have to play until your life zero");
-        
-        players[playerId - 1].score += _score;
+        _score = _score / (1 * 1e18);
+        players[addressToPlayerId[msg.sender] - 1].score += _score;
     }
 
     function grantPrize() public onlyOrganizer {
