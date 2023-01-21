@@ -4,6 +4,7 @@ import Footer from "../components/Footer";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { triggerSuccessAlert, triggerInfoAlert } from "../slices/alertSlice";
+
 import { getOrganizerFactoryContract } from "../../contracts/OrganizerContractHelper";
 
 export default function OrganizerForm() {
@@ -18,6 +19,8 @@ export default function OrganizerForm() {
   }
 
   async function createOrganizer() {
+    setDisableLoaderBtn(true);
+    setLoading(true);
     try {
       if (state.length === 0) {
         dispatch(
@@ -27,8 +30,7 @@ export default function OrganizerForm() {
         );
         return "";
       }
-      setDisableLoaderBtn(true);
-      setLoading(true);
+
       let { organizerWriteContract } = await getOrganizerFactoryContract();
       const tx = await organizerWriteContract.createOrganizer(
         state._username,
@@ -37,7 +39,9 @@ export default function OrganizerForm() {
       );
 
       await tx.wait();
-      dispatch(triggerSuccessAlert({ content: "Success Organizer NFT" }));
+      dispatch(
+        triggerSuccessAlert({ content: "Successfully minted ORGNZR NFT" })
+      );
       setLoading(false);
       setDisableLoaderBtn(false);
       navigate("/");

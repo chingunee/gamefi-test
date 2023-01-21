@@ -1,6 +1,6 @@
 {
-  "organizerFactory": "0x2d777437D93CEA7dfFefaC603fd6B134E9488ae3",
-  "organizerNft": "0x2d6D0c05f96a8D4875A506F13b80E20C0Ad3B2f1",
-  "tournamentFactory": "0x0787c909616D3386eB706934e098d6F4D3Dd4A78",
+  "organizerFactory": "0x746FA3437979382CA25DeDCAe714895C54B39dA0",
+  "organizerNft": "0x78A2a65f07AaaD46Bb13fA10fb35d11f34c2aA5b",
+  "tournamentFactory": "0x7b007Ce6D8D8330054Fe577D6d54c6f55B5926b1",
   "mockToken": "0xEaBd8ceF5d58111935ce3537793F02Fc842EF474"
 }

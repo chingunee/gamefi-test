@@ -12,10 +12,15 @@ import { getMockTokenContract } from "../../contracts/MockTokenContractHelper";
 
 const TournamentCard = (props) => {
   const app = useSelector((state) => state.app);
-
   const [playerData, setPlayerData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [loadingA, setLoadingA] = useState(false);
+  const [loadingB, setLoadingB] = useState(false);
+
   const [disableLoaderBtn, setDisableLoaderBtn] = useState(false);
+  const [disableLoaderBtnA, setDisableLoaderBtnA] = useState(false);
+  const [disableLoaderBtnB, setDisableLoaderBtnB] = useState(false);
+
   const { data, index } = props;
   const dispatch = useDispatch();
   const [score, setScore] = useState(0);
@@ -38,8 +43,8 @@ const TournamentCard = (props) => {
   }
 
   async function increase() {
-    setLoading(true);
-    setDisableLoaderBtn(true);
+    setLoadingA(true);
+    setDisableLoaderBtnA(true);
     const { mockTokenWriteContract } = await getMockTokenContract();
     let amountSC = ethers.utils.parseEther(score.toString(), "18");
 
@@ -52,13 +57,13 @@ const TournamentCard = (props) => {
     dispatch(
       triggerSuccessAlert({ content: "Successfully increased allowance" })
     );
-    setLoading(false);
-    setDisableLoaderBtn(false);
+    setLoadingA(false);
+    setDisableLoaderBtnA(false);
   }
 
   async function participateTournament() {
-    setLoading(true);
-    setDisableLoaderBtn(true);
+    setLoadingB(true);
+    setDisableLoaderBtnB(true);
     const { tournamentWriteContract } = await getTournamentContract(
       data.tournamentAddress
     );
@@ -68,8 +73,8 @@ const TournamentCard = (props) => {
     dispatch(
       triggerSuccessAlert({ content: "Successfully joined tournament" })
     );
-    setLoading(false);
-    setDisableLoaderBtn(false);
+    setLoadingB(false);
+    setDisableLoaderBtnB(false);
   }
 
   return (
@@ -140,19 +145,19 @@ const TournamentCard = (props) => {
 
         {!app.isPlayer && (
           <button
-            disabled={disableLoaderBtn ? true : false}
+            disabled={disableLoaderBtnA ? true : false}
             onClick={() => increase()}
             className={`font-body bg-[#28dbd1] text-[#0a1f2f]
-        h-11 w-32 font-semibold rounded-md -skew-x-6 
-        hover:text-[#28dbd1] hover:border-[#28dbd1] hover:skew-x-0 
-        duration-300 border border-transparent hover:bg-[#0a1f2f] text-lg ${
-          disableLoaderBtn ? "bg-gray-500" : "bg-[#28dbd1]hover:text-[#28dbd1]"
-        } `}
+      h-11 w-32 font-semibold rounded-md -skew-x-6 
+      hover:text-[#28dbd1] hover:border-[#28dbd1] hover:skew-x-0 
+      duration-300 border border-transparent hover:bg-[#0a1f2f] text-lg ${
+        disableLoaderBtnA ? "bg-gray-500" : "bg-[#28dbd1]hover:text-[#28dbd1]"
+      } `}
           >
-            {loading ? (
+            {loadingA ? (
               <svg
                 className={`inline mr-2 w-4 h-4 ${
-                  disableLoaderBtn ? "fill-black" : "text-blue-400 fill-white"
+                  disableLoaderBtnA ? "fill-black" : "text-blue-400 fill-white"
                 }  animate-spin `}
                 viewBox="0 0 100 101"
                 fill="none"
@@ -182,18 +187,19 @@ const TournamentCard = (props) => {
             </p>
           </div>
         )}
+
         {!app.isPlayer && (
           <button
-            disabled={disableLoaderBtn ? true : false}
+            disabled={disableLoaderBtnB ? true : false}
             onClick={() => participateTournament()}
             className={`font-body bg-[#28dbd1] text-[#0a1f2f]
-        h-11 w-32 font-semibold rounded-md -skew-x-6 
-        hover:text-[#28dbd1] hover:border-[#28dbd1] hover:skew-x-0 
-        duration-300 border border-transparent hover:bg-[#0a1f2f] text-lg ${
-          disableLoaderBtn ? "bg-gray-500" : "bg-[#28dbd1]hover:text-[#28dbd1]"
-        } `}
+      h-11 w-32 font-semibold rounded-md -skew-x-6 
+      hover:text-[#28dbd1] hover:border-[#28dbd1] hover:skew-x-0 
+      duration-300 border border-transparent hover:bg-[#0a1f2f] text-lg ${
+        disableLoaderBtnB ? "bg-gray-500" : "bg-[#28dbd1]hover:text-[#28dbd1]"
+      } `}
           >
-            {loading ? (
+            {loadingB ? (
               <svg
                 className={`inline mr-2 w-4 h-4 ${
                   disableLoaderBtn ? "fill-black" : "text-blue-400 fill-white"
@@ -217,6 +223,25 @@ const TournamentCard = (props) => {
             <span>Participate</span>
           </button>
         )}
+        <div className="font-body text-lg">
+          <p className="text-white/80 font-medium">Raised Amount</p>
+          <div className="space-y-1">
+            <div className="font-body text-white font-semibold text-xl flex space-x-1 items-center">
+              <p className="text-[#28dbd1]">5000</p>
+              <span className="">/</span>
+              <p>15000 BUSD</p>
+            </div>
+            <Line
+              className="rounded"
+              percent={10}
+              strokeLinecap="square"
+              strokeWidth={4}
+              trailWidth={4}
+              strokeColor="#28dbd1"
+              trailColor="#02121d"
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

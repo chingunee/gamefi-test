@@ -116,10 +116,6 @@ contract Tournament {
         emit PlayerLifeIncreased(msg.sender, amount);
     }
 
-    function decreaseLife() public onlyPlayer {
-        players[addressToPlayerId[msg.sender] - 1].life -= fee;
-    }
-
     function increasePrize(uint amount) public onlyOrganizer {
         bool increasedPrize = token.transferFrom(msg.sender, address(this), amount);
         require(increasedPrize, "The transfer of increasing prize has failed.");
@@ -131,11 +127,10 @@ contract Tournament {
         require(
             _score >= 0, 
             "Score cannot be negative");
-        require(
-            players[playerId - 1].life == 0,
-            "In order to add score your balance you have to play until your life zero");
+        require(players[addressToPlayerId[msg.sender] - 1].life > 0, "You need life");
         _score = _score / (1 * 1e18);
         players[addressToPlayerId[msg.sender] - 1].score += _score;
+        players[addressToPlayerId[msg.sender] - 1].life -= fee;
     }
 
     function grantPrize() public onlyOrganizer {

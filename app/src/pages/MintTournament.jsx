@@ -20,6 +20,8 @@ export default function MintTournament() {
   }
 
   async function createTournament() {
+    setDisableLoaderBtn(true);
+    setLoading(true);
     try {
       if (state.length === 0) {
         dispatch(
@@ -45,6 +47,7 @@ export default function MintTournament() {
       dispatch(
         triggerSuccessAlert({ content: "Successful created tournament" })
       );
+
       setLoading(false);
       setDisableLoaderBtn(false);
       navigate("/");

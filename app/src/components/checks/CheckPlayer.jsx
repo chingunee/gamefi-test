@@ -13,7 +13,7 @@ export default function CheckPlayer({ children }) {
 
   async function checkIfUserIsPlayer() {
     try {
-      let addr = "0x9154F1E609f7186d845447716885e257a978b1dc";
+      let addr = "0x0E2FeD281E2b8A55Ede1b4fEe7cC6DFbE2E7A8a1";
       const { tournamentReadContract } = await getTournamentContract(addr);
       let balance = await tournamentReadContract.addressJoined(
         window.ethereum.selectedAddress
