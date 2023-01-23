@@ -20,7 +20,7 @@ export default function Navbar() {
             {app.isOrganizer && <Link to="/create-tournament">CREATE</Link>}
             <Link to="/games">GAMES</Link>
             <Link to="/tournaments">TOURNAMENTS</Link>
-            <Link to="/leader-board">LEADER BOARD</Link>
+            <Link to="/leaderboard">LEADER BOARD</Link>
           </div>
           <div className="block md:hidden text-white">
             <GiHamburgerMenu size={25} />

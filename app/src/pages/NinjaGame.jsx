@@ -4,17 +4,19 @@ import { getTournamentContract } from "../../contracts/TournamentContractHelper"
 import { useDispatch } from "react-redux";
 import { triggerSuccessAlert, triggerInfoAlert } from "../slices/alertSlice";
 import { getMockTokenContract } from "../../contracts/MockTokenContractHelper";
+import { useNavigate } from "react-router-dom";
 
 import { ethers } from "ethers";
 
 export default function NinjaGame() {
   const app = useSelector((state) => state.app);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [disableLoaderBtn, setDisableLoaderBtn] = useState(false);
   const [amount, setAmount] = useState(0);
-  let addr = "0x0E2FeD281E2b8A55Ede1b4fEe7cC6DFbE2E7A8a1";
+  let addr = "0xFf46ab36F03518aeFB2e495A040Ba723514Ca070";
 
   async function increase() {
     setLoading(true);
@@ -54,6 +56,8 @@ export default function NinjaGame() {
     let amountBN = ethers.utils.parseEther(oneTimeScore.toString(), "18");
     let tx = await tournamentWriteContract.addScore(amountBN);
     await tx.wait();
+    navigate("/games/stick-hero/play");
+    navigate(0);
 
     dispatch(triggerSuccessAlert({ content: "Successfully added score" }));
     setLoading(false);

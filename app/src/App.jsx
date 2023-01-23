@@ -5,9 +5,9 @@ import OrganizerForm from "./pages/OrganizerForm";
 import MintTournament from "./pages/MintTournament";
 import GamePage from "./pages/GamePage";
 import GameDetails from "./pages/GameDetails";
-
 import NinjaGame from "./pages/NinjaGame";
 import Tournaments from "./pages/Tournaments";
+import LeaderBoard from "./pages/LeaderBoard";
 function App() {
   return (
     <BrowserRouter>
@@ -25,6 +25,7 @@ function App() {
             </Route>
           </Route>
           <Route path="/tournaments" element={<Tournaments />} />
+          <Route path="/leaderboard" element={<LeaderBoard />} />
         </Route>
       </Routes>
     </BrowserRouter>

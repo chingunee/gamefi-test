@@ -9,12 +9,10 @@ import offerImg1 from "../../assets/offerImg1.png";
 import offerImg2 from "../../assets/offerImg2.png";
 import offerImg3 from "../../assets/offerImg3.png";
 import offerImg4 from "../../assets/offerImg4.png";
-import memberImg1 from "../../assets/memberImg1.png";
 
 import StepCard from "../components/StepCard";
 import RoadmapCard from "../components/RoadmapCard";
 import OfferCard from "../components/OfferCard";
-import MemberCard from "../components/MemberCard";
 
 import { UseWindowSize } from "../components/UseWindowSize";
 import Footer from "../components/Footer";
@@ -62,14 +60,14 @@ export default function HomePage() {
           <div className="w-full md:w-1/2 text-white font-body">
             <div className="w-full xl:w-2/3 space-y-6">
               <h1 className="uppercase font-bold lg:text-7xl md:text-5xl text-4xl">
-                web 3.0 launchpad for igo & ido
+                web 3.0 games for mnft community
               </h1>
               <p className="font-medium lg:text-lg">
-                The next generation gaming ecosystem for IGOs and IDO launchpad
-                web 3.0 platform{" "}
+                The next generation gaming ecosystem for communities web 3.0
+                platform{" "}
               </p>
               <button className="bg-[#28dbd1] text-[#0a1f2f] hover:text-[#28dbd1] hover:border-[#28dbd1] hover:skew-x-0 duration-300 border border-transparent hover:bg-[#0a1f2f] font-semibold text-lg h-14 px-8 rounded -skew-x-6">
-                Explore IGO
+                Explore
               </button>
             </div>
           </div>
@@ -267,58 +265,6 @@ export default function HomePage() {
                 img={offerImg4}
                 desc="Lorem ipsum dolor, sit amet consec tetur adipisicing elit. 
                                 Provident eius eaque aspernatur amet "
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-      <div className="bg-[#02121d]">
-        <div className="xl:container xl:px-20 md:px-12 px-4 mx-auto h-full w-full md:py-20 py-10 font-body flex flex-col items-center">
-          <p className="text-[#28dbd1] font-semibold md:text-2xl text-lg">
-            Team
-          </p>
-          <h1 className="text-white font-bold md:text-5xl text-2xl text-center">
-            Meet the Crew
-          </h1>
-          <div className="pt-10 flex flex-wrap lg:flex-nowrap items-center justify-between lg:space-x-6">
-            <div className="md:w-[48%] md:mr-2 mb-5 lg:m-0">
-              <MemberCard
-                id="1"
-                toggle={toggleHoverMemberCard}
-                isHover={isHoveredMember}
-                name="Alex Mike"
-                profession="Founder"
-                img={memberImg1}
-              />
-            </div>
-            <div className="md:w-[48%] md:ml-2 mb-5 lg:m-0">
-              <MemberCard
-                id="2"
-                toggle={toggleHoverMemberCard}
-                isHover={isHoveredMember}
-                name="David Vice"
-                profession="Founder"
-                img={memberImg1}
-              />
-            </div>
-            <div className="md:w-[48%] md:mr-2 mt-5 lg:m-0">
-              <MemberCard
-                id="3"
-                toggle={toggleHoverMemberCard}
-                isHover={isHoveredMember}
-                name="Young Jong"
-                profession="Founder"
-                img={memberImg1}
-              />
-            </div>
-            <div className="md:w-[48%] md:ml-2 mt-5 lg:m-0">
-              <MemberCard
-                id="4"
-                toggle={toggleHoverMemberCard}
-                isHover={isHoveredMember}
-                name="David Dzue"
-                profession="Founder"
-                img={memberImg1}
               />
             </div>
           </div>
