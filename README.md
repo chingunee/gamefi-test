@@ -1,1 +1,1 @@
-# WEB 3.0 Mini-Game Platform
+# WEB 3.0 Mini-Games Platform
